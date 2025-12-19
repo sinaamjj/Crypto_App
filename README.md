@@ -11,7 +11,7 @@
 - نمایش فهرست ۲۰ رمزارز با امکان **صفحه‌بندی** (pagination).
 - **جستجوی فوری** رمزارزها با نمایش نتایج در حین تایپ.
 - انتخاب ارز پایهٔ دلخواه (USD، EUR یا JPY) و نمایش قیمت‌ها با نماد و فرمت متناسب.
-- نمایش **نمودار خطی** واکنش‌گرا برای قیمت، ارزش بازار و حجم معاملات هر سکه در ۷ روز گذشته با استفاده از کتابخانهٔ Recharts:contentReference[oaicite:0]{index=0}.
+- نمایش **نمودار خطی** واکنش‌گرا برای قیمت، ارزش بازار و حجم معاملات هر سکه در ۷ روز گذشته با استفاده از کتابخانهٔ Recharts.
 - رابط کاربری ساده و واکنش‌گرا با استفاده از **CSS Modules**.
 - استفاده از اسپینر برای نمایش وضعیت بارگذاری (react‑loader‑spinner).
 
@@ -19,7 +19,7 @@
 
 - React 19 به همراه hooks
 - Vite برای ساخت و راه‌اندازی سریع
-- Recharts برای رسم نمودارها:contentReference[oaicite:1]{index=1}
+- Recharts برای رسم نمودارها
 - react‑loader‑spinner برای نمایش لودینگ
 - CSS Modules برای استایل‌دهی کامپوننت‌ها
 - API سایت CoinGecko برای دریافت داده‌ها
@@ -34,8 +34,8 @@
   - `Search.jsx` برای جستجوی سکه‌ها و انتخاب واحد پول.
   - `TableCoin.jsx` برای نمایش جدول سکه‌ها، فرمت‌کردن قیمت‌ها و فراخوانی نمودار.
   - `Pagination.jsx` برای جابه‌جایی بین صفحات.
-  - `Chart.jsx` برای نمایش نمودار خطی و دکمه‌های تغییر نوع داده (prices، market_caps، total_volumes):contentReference[oaicite:2]{index=2}.
-- **services** – فایل `cryptoApi.js` شامل توابع `getCoinList`، `searchCoin` و `marketChart` برای درخواست به API:contentReference[oaicite:3]{index=3}.
+  - `Chart.jsx` برای نمایش نمودار خطی و دکمه‌های تغییر نوع داده (prices، market_caps، total_volumes)
+- **services** – فایل `cryptoApi.js` شامل توابع `getCoinList`، `searchCoin` و `marketChart` برای درخواست به API
 - **helper** – فایل `convertData.js` برای تبدیل داده‌های نمودار به قالبی که توسط Recharts استفاده می‌شود.
 
 ## نحوه نصب و اجرا
