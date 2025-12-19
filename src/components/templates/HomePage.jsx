@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import { getCoinList } from "../../services/cryptoApi";
 
 import TableCoin from "../modules/TableCoin";
@@ -24,6 +23,7 @@ function HomePage() {
         setIsLoading(false);
       } catch (error) {
         console.log(error);
+        setIsLoading(false);
       }
     };
     getData();
@@ -32,8 +32,16 @@ function HomePage() {
   return (
     <div>
       <Search currency={currency} setCurrency={setCurrency} />
-      <TableCoin coins={coins} isLoading={isLoading} setChart={setChart} />
+
+      <TableCoin
+        coins={coins}
+        isLoading={isLoading}
+        setChart={setChart}
+        currency={currency}
+      />
+
       <Pagination page={page} setPage={setPage} />
+
       {!!chart && <Chart chart={chart} setChart={setChart} />}
     </div>
   );

@@ -2,12 +2,11 @@ import chartUp from "../../assets/chart-up.svg";
 import chartDown from "../../assets/chart-down.svg";
 
 import { RotatingLines } from "react-loader-spinner";
-
 import { marketChart } from "../../services/cryptoApi";
 
 import styles from "./TableCoin.module.css";
 
-function TableCoin({ coins, isLoading, setChart }) {
+function TableCoin({ coins, isLoading, setChart, currency }) {
   return (
     <div className={styles.container}>
       {isLoading ? (
@@ -24,9 +23,15 @@ function TableCoin({ coins, isLoading, setChart }) {
               <th></th>
             </tr>
           </thead>
+
           <tbody>
             {coins.map((coin) => (
-              <TableRow coin={coin} key={coin.id} setChart={setChart} />
+              <TableRow
+                coin={coin}
+                key={coin.id}
+                setChart={setChart}
+                currency={currency}
+              />
             ))}
           </tbody>
         </table>
@@ -37,8 +42,8 @@ function TableCoin({ coins, isLoading, setChart }) {
 
 export default TableCoin;
 
-const TableRow = ({
-  coin: {
+const TableRow = ({ coin, setChart, currency }) => {
+  const {
     id,
     image,
     symbol,
@@ -46,9 +51,8 @@ const TableRow = ({
     current_price,
     price_change_percentage_24h: price_change,
     total_volume,
-  },
-  setChart,
-}) => {
+  } = coin;
+
   const hasChange = typeof price_change === "number";
   const isPositive = hasChange && price_change > 0;
 
@@ -56,11 +60,20 @@ const TableRow = ({
     try {
       const res = await fetch(marketChart(id));
       const json = await res.json();
-      setChart(json);
+      setChart({ ...json, coin });
     } catch (error) {
       setChart(null);
     }
   };
+
+  const formattedPrice =
+    typeof current_price === "number"
+      ? new Intl.NumberFormat(undefined, {
+          style: "currency",
+          currency: currency.toUpperCase(),
+          maximumFractionDigits: 2,
+        }).format(current_price)
+      : "-";
 
   return (
     <tr>
@@ -73,11 +86,7 @@ const TableRow = ({
 
       <td>{name}</td>
 
-      <td>
-        {typeof current_price === "number"
-          ? `$ ${current_price.toLocaleString()}`
-          : "-"}
-      </td>
+      <td>{formattedPrice}</td>
 
       <td
         className={
