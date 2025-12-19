@@ -1,16 +1,66 @@
-# React + Vite
+# Crypto App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+این پروژه یک اپلیکیشن تحت وب برای مشاهده وضعیت ارزهای دیجیتال است که با **React** و **Vite** ساخته شده است. اطلاعات قیمت و نمودارها از API سایت [CoinGecko](https://www.coingecko.com/) دریافت می‌شود.
 
-Currently, two official plugins are available:
+## معرفی
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+در صفحهٔ اصلی فهرستی از ۲۰ رمزارز برتر بر اساس ارزش بازار نمایش داده می‌شود. برای هر رمزارز، نام، نماد، قیمت به واحد دلخواه، درصد تغییر قیمت در ۲۴ ساعت گذشته و حجم معاملات آن قابل مشاهده است. با کلیک روی هر سکه می‌توانید نمودار خطی ۷ روزهٔ قیمت، ارزش بازار یا حجم معاملات آن را مشاهده کنید.
 
-## React Compiler
+## ویژگی‌ها
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- نمایش فهرست ۲۰ رمزارز با امکان **صفحه‌بندی** (pagination).
+- **جستجوی فوری** رمزارزها با نمایش نتایج در حین تایپ.
+- انتخاب ارز پایهٔ دلخواه (USD، EUR یا JPY) و نمایش قیمت‌ها با نماد و فرمت متناسب.
+- نمایش **نمودار خطی** واکنش‌گرا برای قیمت، ارزش بازار و حجم معاملات هر سکه در ۷ روز گذشته با استفاده از کتابخانهٔ Recharts:contentReference[oaicite:0]{index=0}.
+- رابط کاربری ساده و واکنش‌گرا با استفاده از **CSS Modules**.
+- استفاده از اسپینر برای نمایش وضعیت بارگذاری (react‑loader‑spinner).
 
-## Expanding the ESLint configuration
+## تکنولوژی‌ها و وابستگی‌ها
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React 19 به همراه hooks
+- Vite برای ساخت و راه‌اندازی سریع
+- Recharts برای رسم نمودارها:contentReference[oaicite:1]{index=1}
+- react‑loader‑spinner برای نمایش لودینگ
+- CSS Modules برای استایل‌دهی کامپوننت‌ها
+- API سایت CoinGecko برای دریافت داده‌ها
+
+## ساختار پروژه
+
+ساختار اصلی کد در پوشهٔ `src/` قرار دارد:
+
+- **layout** – کامپوننت `Layout.jsx` که شامل هدر و فوتر است.
+- **components/templates** – قالب‌ صفحهٔ اصلی (`HomePage.jsx`) که مدیریت‌کنندهٔ وضعیت‌ها و ترکیب‌کنندهٔ سایر کامپوننت‌ها است.
+- **components/modules** – کامپوننت‌های تکرارشونده:
+  - `Search.jsx` برای جستجوی سکه‌ها و انتخاب واحد پول.
+  - `TableCoin.jsx` برای نمایش جدول سکه‌ها، فرمت‌کردن قیمت‌ها و فراخوانی نمودار.
+  - `Pagination.jsx` برای جابه‌جایی بین صفحات.
+  - `Chart.jsx` برای نمایش نمودار خطی و دکمه‌های تغییر نوع داده (prices، market_caps، total_volumes):contentReference[oaicite:2]{index=2}.
+- **services** – فایل `cryptoApi.js` شامل توابع `getCoinList`، `searchCoin` و `marketChart` برای درخواست به API:contentReference[oaicite:3]{index=3}.
+- **helper** – فایل `convertData.js` برای تبدیل داده‌های نمودار به قالبی که توسط Recharts استفاده می‌شود.
+
+## نحوه نصب و اجرا
+
+برای اجرای پروژه به Node.js و npm یا yarn نیاز است.
+
+```bash
+# کلون کردن مخزن
+git clone https://github.com/sinaamjj/Crypto_App.git
+cd Crypto_App
+
+# نصب وابستگی‌ها
+npm install
+# یا
+yarn
+
+# (اختیاری) تعریف کلید API:
+# کلید رایگان خود را از CoinGecko دریافت کنید و در فایل src/services/cryptoApi.js جایگزین API_KEY نمایید.
+
+# اجرای سرور توسعه
+npm run dev
+# سپس در مرورگر به آدرس http://localhost:5173 مراجعه کنید.
+
+# ساخت نسخهٔ نهایی برای انتشار
+npm run build
+
+# پیش‌نمایش نسخهٔ ساخته‌شده
+npm run preview
